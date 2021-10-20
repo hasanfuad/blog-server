@@ -1,7 +1,6 @@
 const router = require("express").Router();
-const bcrypt = require('bcrypt');
-const { resolveSoa } = require("dns");
 const User = require("../models/User");
+const bcrypt = require('bcrypt');
 
 //Register
 

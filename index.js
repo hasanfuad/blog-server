@@ -1,7 +1,10 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
+
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
 const postRoute = require("./routes/posts");
@@ -10,6 +13,7 @@ const multer = require("multer");
 
 dotenv.config();
 
+app.use(cors());
 app.use(express.json());
 
 mongoose
@@ -20,8 +24,8 @@ mongoose
   .then(() => {
     console.log("connected to mongoDb");
   })
-  .catch((e) => {
-    console.log("Something went wrong", e);
+  .catch((err) => {
+    console.log(err);
   });
 
 const storage = multer.diskStorage({
@@ -29,7 +33,7 @@ const storage = multer.diskStorage({
     cb(null, "images");
   },
   filename: (req, file, cb) => {
-    cb(null, "hello.jpg");
+    cb(null, req.body.name);
   },
 });
 
